@@ -6,9 +6,12 @@ const Repertoire = ({nasa}) =>{
 	return(
 		<>
 			<h3>Taken: {nasa.date}</h3>
-			<h3>
+			<p>
+				{nasa.explanation}
+			</p>
+			<p>
 				<span dangerouslySetInnerHTML={{ "__html": "&copy;" }} /> {nasa.copyright}
-			</h3>
+			</p>
 		</>	
 	)
 }

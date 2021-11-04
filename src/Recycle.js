@@ -1,38 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Repertoire from './Repertoire';
-import axios from "axios";
-import { BASE_URL, API_KEY } from './constants/index';
 import './index.css' 
+import styled, { keyframes } from 'styled-components';
 
-const Recycle = ({nasa}) => {
-	const [date, setDate] = useState('2021-11-03')
+const kfp = keyframes`
+	0%{
 
-	const changeInput = evt =>{
-		const { value } = evt.target;
-		setDate(value);
 	}
+	50%{
 
-	  const reset = () => {
-    setDate('');
-  };
+	}
+	100%{
+    	transform: rotateZ(360DEG);
+  	}
+`
 
-	useEffect(()=>{
-    axios.get(`${BASE_URL}api_key=${API_KEY}&date=${date}`)
-      .then()
-      .catch(err=>{
-        console.error(err);
-      })
-  }, [])
+const StyledRecycle = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0% 5%;
+	background-color: white;
+	width: 90%;
+	text-align: center;
+	img{
+		width: 50%;
+		height 50%;
+		
+	}
+`
+const StyledDiv = styled.div`
+	
+  	transform: rotateZ(0DEG);
+  	animation: 2s linear .5s infinite normal none running ${kfp};
+`
+const StyledSpan = styled.span`
+	display: flex;
+	justify-content:center;
+`
+
+	//document.querySelector('img').addEventListener('click' );
+
+const Recycle = ({nasa, changeInput}) => {
 	return (
-		<>
-			
-			{nasa ? <img src={nasa.hdurl} alt={nasa.explanation}/> : <p>Loading... pls be patient</p>}
+		<StyledRecycle>
+			<h1>
+        		NASA Photo of the Day! It has the popular<StyledSpan>appeal of a Justin Bieber video!<StyledDiv>🚀</StyledDiv>!</StyledSpan>
+      		</h1>
+      		<h2>{nasa.title}</h2>
+			{nasa ? <img src={nasa.url} alt={nasa.explanation}/> : <p>Loading... pls be patient</p>}
 			<div>
-				<input /> <button id='resetInput' onClick={reset}>Reset</button>
+				<button onClick={changeInput}>Random!</button>
 				<Repertoire nasa={nasa} />
 			</div>
-		</>
+		</StyledRecycle>
 	)
-} 
+}
 
 export default Recycle;
